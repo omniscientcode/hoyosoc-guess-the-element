@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Element</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .image-container {
+            margin: 20px 0;
+        }
+        
+        .options {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            min-height: 27px;
+        }
+        
+        #new-image-btn {
+            background-color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Element</h1>
+    <p>Click the correct element for the image shown.</p>
+    <div class="image-container">
+        <img id="element-image" src="/api/placeholder/300/200" alt="Element Image" width="300">
+    </div>
+    <div class="options">
+        <button id="pyro-btn" class="element-btn">Pyro</button>
+        <button id="hydro-btn" class="element-btn">Hydro</button>
+        <button id="electro-btn" class="element-btn">Electro</button>
+        <button id="cryo-btn" class="element-btn">Cryo</button>
+        <button id="anemo-btn" class="element-btn">Anemo</button>
+        <button id="geo-btn" class="element-btn">Geo</button>
+        <button id="dendro-btn" class="element-btn">Dendro</button>
+    </div>
+    <button id="new-image-btn">Get New Image</button>
+    <p id="result"></p>
+    <p class="score">Score: <span id="score">0</span></p>
+
+    
+    <script src="script.js">
+</script>
+</body>
+</html>
