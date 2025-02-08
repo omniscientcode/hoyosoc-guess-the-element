@@ -56,7 +56,6 @@ async function scrapeGenshinCharacterData() {
         const character = {
           name: name.replace(' ', '_'),
           element: cells.length > 3 ? $(cells[3]).text().trim() : null,
-          weapon: cells.length > 4 ? $(cells[4]).text().trim() : null,
         };        
         
         if (character.name && elementList.includes(character.element)) {
@@ -127,14 +126,13 @@ async function downloadImage(characterObject) {
   }
 
   try {
-    let url = characterObject.src;
     let filename = characterObject.name + '.png'
     const response = await axios({
-      url,
+      url: characterObject.src,
       responseType: 'stream'
     });
     
-    const filePath = path.join(imageDir, filenam);
+    const filePath = path.join(imageDir, filename);
     characterObject.filePath = path.join('character-icons', filename);
     
     const writer = fs.createWriteStream(filePath);
@@ -145,7 +143,7 @@ async function downloadImage(characterObject) {
       writer.on('error', reject);
     });
   } catch (error) {
-    console.error(`Failed to download ${url}: ${error.message}`);
+    console.error(`Failed to download ${characterObject.src}: ${error.message}`);
   }
 }
 
