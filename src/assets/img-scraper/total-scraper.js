@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 };
 
 const baseURL = 'https://genshin-impact.fandom.com/wiki';
@@ -13,18 +13,17 @@ const elementList = [
   'Pyro',
   'Geo',
   'Dendro',
-  'Cryo', 
-  'Electro', 
-  'Anemo',  
+  'Cryo',
+  'Electro',
+  'Anemo',
   'Hydro'
 ];
 
-
 async function scrapeGenshinCharacterData() {
   try {
-    const characterListURL = baseURL + '/Character/List'
-    const response = await axios.get(characterListURL, {headers})
-    console.log("GET request successful");
+    const characterListURL = baseURL + '/Character/List';
+    const response = await axios.get(characterListURL, { headers });
+    console.log('GET request successful');
 
     const $ = cheerio.load(response.data);
 
@@ -56,14 +55,13 @@ async function scrapeGenshinCharacterData() {
         const character = {
           name: name.replace(' ', '_'),
           element: cells.length > 3 ? $(cells[3]).text().trim() : null,
-        };        
-        
+        };
+
         if (character.name && elementList.includes(character.element)) {
           if (!charactersDict[character.name]) {
             charactersDict[character.name] = character;
           }
         }
-
       });
     });
 
@@ -72,11 +70,9 @@ async function scrapeGenshinCharacterData() {
 
     console.log(characters);
     return characters;
-
   } catch (error) {
-
     console.error('Scraping error:', error);
-    throw(error);
+    throw (error);
   }
 }
 
@@ -84,20 +80,19 @@ async function extractImageFromPage(character) {
   const characterURL = baseURL + '/' + character;
   let foundImage;
   try {
-    const response = await axios.get(characterURL, {headers});
+    const response = await axios.get(characterURL, { headers });
 
-    console.log("GET request successful");
+    console.log('GET request successful');
 
     const $ = cheerio.load(response.data);
 
     $('img').each((index, element) => {
-
       const imgSrc = $(element).attr('data-src') || $(element).attr('src');
-    
+
       if (imgSrc && !imgSrc.startsWith('data:')) {
         let absoluteURL = imgSrc.startsWith('//') ? 'https:' + imgSrc : imgSrc;
         if (absoluteURL.includes('Full_Wish')) {
-          absoluteURL = absoluteURL.replace(/\/scale-to-width-down\/\d+/, "");
+          absoluteURL = absoluteURL.replace(/\/scale-to-width-down\/\d+/, '');
           console.log(absoluteURL);
           foundImage = absoluteURL;
         }
@@ -109,7 +104,7 @@ async function extractImageFromPage(character) {
         if (error.response.status === 404) {
           console.error("ERR 404: Page doesn't exist / didn't respond");
         } else {
-          console.error("Server responded with:", error.response.status);
+          console.error('Server responded with:', error.response.status);
         }
       }
       throw new Error("image extraction didn't work"); // Handle failure gracefully
@@ -122,19 +117,19 @@ async function extractImageFromPage(character) {
 async function downloadImage(characterObject) {
   const imageDir = path.join(__dirname, '..', 'character-icons');
   if (!fs.existsSync(imageDir)) {
-    fs.mkdirSync(imageDir, {recursive: true});
+    fs.mkdirSync(imageDir, { recursive: true });
   }
 
   try {
-    let filename = characterObject.name + '.png'
+    const filename = characterObject.name + '.png';
     const response = await axios({
       url: characterObject.src,
       responseType: 'stream'
     });
-    
+
     const filePath = path.join(imageDir, filename);
     characterObject.filePath = path.join('character-icons', filename);
-    
+
     const writer = fs.createWriteStream(filePath);
     response.data.pipe(writer);
 
@@ -149,30 +144,30 @@ async function downloadImage(characterObject) {
 
 async function main() {
   // Fetch character data from list page
-  const characterData = await scrapeGenshinCharacterData(); 
+  const characterData = await scrapeGenshinCharacterData();
 
   for (const character of characterData) {
     // Get image URL
-    const imgsrc = await extractImageFromPage(character.name); 
+    const imgsrc = await extractImageFromPage(character.name);
 
     if (imgsrc) {
       // Assign the image URL
-      character.src = imgsrc; 
+      character.src = imgsrc;
       // Download and update `filePath`
-      await downloadImage(character); 
+      await downloadImage(character);
     }
   }
 
-  console.log(characterData); 
+  console.log(characterData);
   const jsonString = JSON.stringify(characterData, null, 2);
 
-  fs.writeFile("characters.json", jsonString, (err) => {
+  fs.writeFile('../data/character-data.json', jsonString, (err) => {
     if (err) {
-      console.error("Error writing file:", err);
+      console.error('Error writing file:', err);
     } else {
-      console.log("JSON file saved successfully!");
+      console.log('JSON file saved successfully!');
     }
   });
 }
 
-main(); 
+main();
