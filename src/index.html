@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Element</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Guess the Element</h1>
+    <p id="game-text">Try and guess the element of the character!</p>
+    <p id="result"></p>
+    <div>
+        <p class="score">Score: <span id="score">0</span> / <span id="total">0</span> </p>
+    </div>
+
+    <div class="image-container">
+        <img id="element-image" width="300">
+    </div>
+    <div class="options">
+        <button id="pyro-btn" class="element-btn">
+            <img src="assets/element-icons/Pyro.png" alt="Pyro"> Pyro
+        </button>
+        <button id="hydro-btn" class="element-btn">
+            <img src="assets/element-icons/Hydro.png" alt="Hydro"> Hydro
+        </button>
+        <button id="electro-btn" class="element-btn">
+            <img src="assets/element-icons/Electro.png" alt="Electro"> Electro
+        </button>
+        <button id="cryo-btn" class="element-btn">
+            <img src="assets/element-icons/Cryo.png" alt="Cryo"> Cryo
+        </button>
+        <button id="anemo-btn" class="element-btn">
+            <img src="assets/element-icons/Anemo.png" alt="Anemo"> Anemo
+        </button>
+        <button id="geo-btn" class="element-btn">
+            <img src="assets/element-icons/Geo.png" alt="Geo"> Geo
+        </button>
+        <button id="dendro-btn" class="element-btn">
+            <img src="assets/element-icons/Dendro.png" alt="Dendro"> Dendro
+        </button>
+    </div>
+    
+    <button id="new-image-btn">Get New Image</button>
+    <script src="script.js"> </script>
+</body>
+</html>
