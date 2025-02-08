@@ -31,7 +31,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Use characterData instead of the hardcoded data array
     currentElement = characterData[Math.floor(Math.random() * characterData.length)];
     console.log(currentElement);
-
+    if (!currentElement.src) {
+      currentElement = characterData[Math.floor(Math.random() * characterData.length)];
+    }
     // Update the image source to use local path
     // Assuming your character images are stored in a folder like 'assets/characters/'
     currentElement.name = currentElement.name.replace(' ', '_');
