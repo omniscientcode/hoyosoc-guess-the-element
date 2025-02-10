@@ -72,49 +72,24 @@ body {
 #geo-btn { background-color: #8b4513; }
 #dendro-btn { background-color: #7cb30c; }
 
-/* Button hover effects */
+#new-image-btn { background-color: #34495e; }
+
 .element-btn:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Disabled button state */
 .element-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
 }
 
-/* Result text */
 #result {
     font-size: 18px;
     font-weight: bold;
     min-height: 27px;
     margin: 20px 0;
-}
-
-/* get new image button */
-#new-image-btn {
-    background-color: #34495e;
-    color: white;
-    padding: 12px 24px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#new-image-btn:hover {
-    background-color: #2c3e50;
-    transform: translateY(-2px); 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-}
-
-#new-image-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
 }
 
 .score {
