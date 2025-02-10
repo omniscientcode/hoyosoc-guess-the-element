@@ -1,3 +1,4 @@
+
 body {
     font-family: Arial, sans-serif;
     max-width: 800px;
@@ -42,7 +43,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    
+
     width: clamp(120px, 15vw, 175px); 
     height: clamp(60px, 6vw, 80px); 
     font-size: clamp(18px, 3vw, 20px); 
@@ -50,7 +51,7 @@ body {
     border: 3px solid transparent; 
     border-radius: 12px; 
     cursor: pointer;
-    
+
     color: white;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in-out;
@@ -72,24 +73,57 @@ body {
 #geo-btn { background-color: #8b4513; }
 #dendro-btn { background-color: #7cb30c; }
 
-#new-image-btn { background-color: #34495e; }
-
+/* Button hover effects */
 .element-btn:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Disabled button state */
 .element-btn:disabled {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
 }
 
+/* Result text */
 #result {
     font-size: 18px;
     font-weight: bold;
     min-height: 27px;
     margin: 20px 0;
+}
+
+/* get new image button */
+#new-image-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: clamp(120px, 15vw, 175px); 
+    height: clamp(60px, 6vw, 80px); 
+    font-size: clamp(18px, 3vw, 20px); 
+
+    border: 3px solid transparent; 
+    border-radius: 12px; 
+    cursor: pointer;
+
+    background-color: #34495e;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+#new-image-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#new-image-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .score {
